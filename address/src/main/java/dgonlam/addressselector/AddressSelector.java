@@ -110,8 +110,9 @@ public class AddressSelector implements AdapterView.OnItemClickListener {
     private static AddressProvider DEFAULT_ADDRESS_PROVIDER;
 
     private final Context context;
-    private OnAddressSelectedListener listener;
+    private OnAddressSelectedListener onAddressSelectedlistener;
     private AddressProvider addressProvider;
+    private OnCloseClickListener onCloseClickListener;
 
     private View view;
 
@@ -168,6 +169,11 @@ public class AddressSelector implements AdapterView.OnItemClickListener {
 
     private StateListDrawable stateListDrawable;
 
+
+    public void setOnCloseClickListener(OnCloseClickListener onCloseClickListener) {
+        this.onCloseClickListener = onCloseClickListener;
+    }
+
     private void initAdapters() {
         provinceAdapter = new ProvinceAdapter();
         cityAdapter = new CityAdapter();
@@ -190,7 +196,12 @@ public class AddressSelector implements AdapterView.OnItemClickListener {
 
     private void initViews() {
         view = LayoutInflater.from(context).inflate(R.layout.address_selector, null);
-
+        view.findViewById(R.id.selectAddress_ly_close).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onCloseClickListener.onClick(v);
+            }
+        });
         this.progressBar = (ProgressBar) view.findViewById(R.id.progressBar);
 
         this.listView = (ListView) view.findViewById(R.id.listView);
@@ -436,13 +447,13 @@ public class AddressSelector implements AdapterView.OnItemClickListener {
     }
 
     private void callbackInternal() {
-        if (listener != null) {
+        if (onAddressSelectedlistener != null) {
             Province province = provinces == null || provinceIndex == INDEX_INVALID ? null : provinces.get(provinceIndex);
             City city = cities == null || cityIndex == INDEX_INVALID ? null : cities.get(cityIndex);
             County county = counties == null || countyIndex == INDEX_INVALID ? null : counties.get(countyIndex);
             Street street = streets == null || streetIndex == INDEX_INVALID ? null : streets.get(streetIndex);
 
-            listener.onAddressSelected(province, city, county, street);
+            onAddressSelectedlistener.onAddressSelected(province, city, county, street);
         }
     }
 
@@ -702,11 +713,11 @@ public class AddressSelector implements AdapterView.OnItemClickListener {
     }
 
     public OnAddressSelectedListener getOnAddressSelectedListener() {
-        return listener;
+        return onAddressSelectedlistener;
     }
 
     public void setOnAddressSelectedListener(OnAddressSelectedListener listener) {
-        this.listener = listener;
+        this.onAddressSelectedlistener = listener;
     }
 
     public void setAddressProvider(AddressProvider addressProvider) {

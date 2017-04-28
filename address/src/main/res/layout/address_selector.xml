@@ -9,10 +9,43 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
+        <RelativeLayout
+            android:id="@+id/title_rly"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="所在地区"
+                android:textColor="#000000"
+                android:gravity="center_horizontal"
+                android:padding="13dp"
+                android:textSize="16sp"
+                android:typeface="serif"/>
+            <LinearLayout
+                android:id="@+id/selectAddress_ly_close"
+                android:layout_width="50dp"
+                android:layout_height="30dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:gravity="right"
+                android:layout_marginRight="10dp">
+            <ImageView
+                android:layout_width="25dp"
+                android:layout_height="30dp"
+                android:src="@drawable/ic_fork_gray_128"/>
+            </LinearLayout>
+        </RelativeLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#aae3e5e9"
+            android:layout_below="@id/title_rly"/>
         <LinearLayout
             android:id="@+id/layout_tab"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_below="@+id/title_rly"
             android:orientation="horizontal">
 
             <TextView
@@ -44,8 +77,8 @@
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="#e8e8e8" />
+        android:layout_height="0.5dp"
+        android:background="#aae3e5e9" />
 
     <FrameLayout
         android:layout_width="match_parent"
