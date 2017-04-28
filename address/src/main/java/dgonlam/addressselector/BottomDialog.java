@@ -22,7 +22,6 @@ public class BottomDialog  {
         selector.setOnCloseClickListener(new OnCloseClickListener() {
             @Override
             public void onClick(View view) {
-                Log.d("long", "click");
                 dialog.dismiss();
             }
         });
